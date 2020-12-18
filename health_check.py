@@ -5,10 +5,12 @@ import shutil, psutil, os, emails
 
 def health_check(path):
 	 mb_conversion=.000001
+	#check socket
+	localhost = socket.gethostbyname('localhost')
 	#cpu usage
-	cpu=psutil.cpu_percent()
+	cpu=psutil.cpu_percent(1)
 	# RAM
-	ram = psutil.virtual_memory().percent
+	ram = shutil.disk_usage(disk)
 	#available memory
 	memory = psutil.virtual_memory().available * mb_conversion
 
@@ -22,6 +24,7 @@ def health_check(path):
 		case 3: status = "available memory is less than 500MB" if memory < 500 
 		#hostname "localhost" cannot be resolved to "127.0.0.1"
 		case 4: status = "Error - localhost  cannot be resolved to 127.0.0.1" if
+		localhost== "127.0.0.1"
 	return status
 if __name__ == "__main__":
         user=os.getenv('USER')
